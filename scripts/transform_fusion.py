@@ -6,15 +6,12 @@ import copy
 import thread
 import time
 
-import pcl
-import rospy
-import ros_numpy
-from geometry_msgs.msg import PoseWithCovarianceStamped, Pose, Point, Quaternion
-from nav_msgs.msg import Odometry
-from sensor_msgs.msg import PointCloud2
 import numpy as np
+import rospy
 import tf
 import tf.transformations
+from geometry_msgs.msg import Pose, Point, Quaternion
+from nav_msgs.msg import Odometry
 
 cur_odom_to_baselink = None
 cur_map_to_odom = None
