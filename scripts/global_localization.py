@@ -92,9 +92,7 @@ def publish_point_cloud(publisher, header, pc):
     publisher.publish(msg)
 
 
-def crop_global_map_in_FOV(pose_estimation):
-    global global_map, cur_odom
-
+def crop_global_map_in_FOV(global_map, pose_estimation, cur_odom):
     # 当前scan原点的位姿
     T_odom_to_base_link = pose_to_mat(cur_odom)
     T_map_to_base_link = np.matmul(pose_estimation, T_odom_to_base_link)
@@ -142,7 +140,7 @@ def global_localization(pose_estimation):
 
     tic = time.time()
 
-    global_map_in_FOV = crop_global_map_in_FOV(pose_estimation)
+    global_map_in_FOV = crop_global_map_in_FOV(global_map, pose_estimation, cur_odom)
 
     # 粗配准
     transformation, _ = registration_at_scale(scan_tobe_mapped, global_map_in_FOV, initial=pose_estimation, scale=5)
