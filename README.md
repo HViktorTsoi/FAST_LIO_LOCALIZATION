@@ -117,4 +117,5 @@ Thanks for the authors of [FAST-LIO](https://github.com/hku-mars/FAST_LIO) and [
 
 ## TODO
 1. Go over the timestamp issue of the published odometry and tf;
-2. Updating...
+2. Using integrated points for global localization;
+3. Updating...
