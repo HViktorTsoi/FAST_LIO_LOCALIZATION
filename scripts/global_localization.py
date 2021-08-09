@@ -222,17 +222,15 @@ if __name__ == '__main__':
     # Global localization frequency (HZ)
     FREQ_LOCALIZATION = 0.5
 
-    # tf and localization publishing frequency (HZ)
-    FREQ_PUB_LOCALIZATION = 50
-
-    # 全局定位的fitness预支
+    # The threshold of global localization,
+    # only those scan2map-matching with lower fitness than LOCALIZATION_TH will be taken
     LOCALIZATION_TH = 0.2
 
-    # FOV内的最远距离
-    FOV_FAR = 300
-
-    # FOV范围(rad)
+    # FOV(rad), modify this according to your LiDAR type
     FOV = 1.6
+
+    # The farthest distance(meters) within FOV
+    FOV_FAR = 300
 
     rospy.init_node('fast_lio_localization')
     rospy.loginfo('Localization Node Inited...')
