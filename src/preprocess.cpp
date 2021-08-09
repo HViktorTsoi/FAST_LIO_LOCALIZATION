@@ -154,7 +154,10 @@ void Preprocess::avia_handler(const livox_ros_driver::CustomMsg::ConstPtr &msg)
               || (abs(pl_full[i].z - pl_full[i-1].z) > 1e-7)
               && (pl_full[i].x * pl_full[i].x + pl_full[i].y * pl_full[i].y > blind))
           {
-            pl_surf.push_back(pl_full[i]);
+            if(pl_full[i].x * pl_full[i].x + pl_full[i].y * pl_full[i].y < max_scan_range * max_scan_range){
+                pl_surf.push_back(pl_full[i]);
+            }
+//            pl_surf.push_back(pl_full[i]);
           }
         }
       }
