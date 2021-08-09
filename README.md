@@ -4,7 +4,7 @@ A simple localization framework that can re-localize in built maps based on [FAS
 
 ## News
 
-- Migrate to **Open3D** for better performance.
+- **2021-08-09:** Migrate to **Open3D** for better performance.
 
 ## 1. Features
 - Realtime 3D global localization in a pre-built point cloud map. 
@@ -39,7 +39,7 @@ This part of dependency is consistent with FAST-LIO, please refer to the documen
 
 - [ros_numpy](https://github.com/eric-wieser/ros_numpy)
 
-- [Open3d](https://github.com/strawlab/python-pcl)
+- [Open3D](https://github.com/strawlab/python-pcl)
 
 Notice that, there may be issue when installing **Open3D** directly using pip in **Python2.7**, you may firstly install **pyrsistent**:
 ```shell
