@@ -6,7 +6,7 @@ import copy
 import thread
 import time
 
-import pcl
+import open3d as o3d
 import rospy
 import ros_numpy
 from geometry_msgs.msg import PoseWithCovarianceStamped, Pose, Point, Quaternion
@@ -40,30 +40,14 @@ def msg_to_array(pc_msg):
 
 
 def registration_at_scale(pc_scan, pc_map, initial, scale):
-    try:
-        sor = pc_scan.make_voxel_grid_filter()
-        sor.set_leaf_size(SCAN_VOXEL_SIZE * scale, SCAN_VOXEL_SIZE * scale, SCAN_VOXEL_SIZE * scale)
+    result_icp = o3d.registration.registration_icp(
+        pc_scan.voxel_down_sample(SCAN_VOXEL_SIZE * scale), pc_map.voxel_down_sample(MAP_VOXEL_SIZE * scale),
+        1.0 * scale, initial,
+        o3d.registration.TransformationEstimationPointToPoint(),
+        o3d.registration.ICPConvergenceCriteria(max_iteration=20)
+    )
 
-        # 用初始解转换到对应坐标系
-        pc = np.array(sor.filter())
-        pc = np.column_stack([pc, np.ones(pc.shape[0]).reshape(-1, 1)])
-        pc_in_map = (np.matmul(initial, pc.T)).T
-        scan_tobe_mapped = pcl.PointCloud()
-        scan_tobe_mapped.from_array(pc_in_map[:, :3].astype(np.float32))
-
-        # 对地图降采样
-        sor = pc_map.make_voxel_grid_filter()
-        sor.set_leaf_size(MAP_VOXEL_SIZE * scale, MAP_VOXEL_SIZE * scale, MAP_VOXEL_SIZE * scale)
-        map_down = sor.filter()
-
-        icp = map_down.make_IterativeClosestPoint()
-        converged, transformation, estimate, fitness = \
-            icp.icp(scan_tobe_mapped, map_down, max_iter=10)
-        # 这里要将初始解进行变换， 因为icp估计的是精确位置到初始解的delta
-        return np.matmul(transformation, initial), fitness
-    except Exception as e:
-        rospy.logerr('{}'.format(e))
-        return initial, 1e9
+    return result_icp.transformation, result_icp.fitness
 
 
 def inverse_se3(trans):
@@ -99,7 +83,7 @@ def crop_global_map_in_FOV(global_map, pose_estimation, cur_odom):
     T_base_link_to_map = inverse_se3(T_map_to_base_link)
 
     # 把地图转换到lidar系下
-    global_map_in_map = np.array(global_map)
+    global_map_in_map = np.array(global_map.points)
     global_map_in_map = np.column_stack([global_map_in_map, np.ones(len(global_map_in_map))])
     global_map_in_base_link = np.matmul(T_base_link_to_map, global_map_in_map.T).T
 
@@ -118,13 +102,13 @@ def crop_global_map_in_FOV(global_map, pose_estimation, cur_odom):
             (global_map_in_base_link[:, 0] < FOV_FAR) &
             (np.abs(np.arctan2(global_map_in_base_link[:, 1], global_map_in_base_link[:, 0])) < FOV / 2.0)
         )
-    global_map_in_FOV = pcl.PointCloud()
-    global_map_in_FOV.from_array(np.squeeze(global_map_in_map[indices, :3]).astype(np.float32))
+    global_map_in_FOV = o3d.geometry.PointCloud()
+    global_map_in_FOV.points = o3d.utility.Vector3dVector(np.squeeze(global_map_in_map[indices, :3]))
 
     # 发布fov内点云
     header = cur_odom.header
     header.frame_id = 'map'
-    publish_point_cloud(pub_submap, header, global_map_in_FOV.to_array()[::10])
+    publish_point_cloud(pub_submap, header, np.array(global_map_in_FOV.points)[::10])
 
     return global_map_in_FOV
 
@@ -153,7 +137,7 @@ def global_localization(pose_estimation):
     rospy.loginfo('')
 
     # 当全局定位成功时才更新map2odom
-    if fitness < LOCALIZATION_TH:
+    if fitness > LOCALIZATION_TH:
         # T_map_to_odom = np.matmul(transformation, pose_estimation)
         T_map_to_odom = transformation
 
@@ -175,11 +159,10 @@ def global_localization(pose_estimation):
 
 def initialize_global_map(pc_msg):
     global global_map
-    global_map = pcl.PointCloud()
-    global_map.from_array(msg_to_array(pc_msg).astype(np.float32))
-    sor = global_map.make_voxel_grid_filter()
-    sor.set_leaf_size(MAP_VOXEL_SIZE, MAP_VOXEL_SIZE, MAP_VOXEL_SIZE)
-    global_map = sor.filter()
+
+    global_map = o3d.geometry.PointCloud()
+    global_map.points = o3d.utility.Vector3dVector(msg_to_array(pc_msg)[:, :3])
+    global_map = global_map.voxel_down_sample(MAP_VOXEL_SIZE)
     rospy.loginfo('Global map received.')
 
 
@@ -202,8 +185,8 @@ def cb_save_cur_scan(pc_msg):
                      pc_msg.fields[3], pc_msg.fields[7]]
     pc = msg_to_array(pc_msg)
 
-    cur_scan = pcl.PointCloud()
-    cur_scan.from_array(pc.astype(np.float32))
+    cur_scan = o3d.geometry.PointCloud()
+    cur_scan.points = o3d.utility.Vector3dVector(pc[:, :3])
 
 
 def thread_localization():
@@ -223,14 +206,14 @@ if __name__ == '__main__':
     FREQ_LOCALIZATION = 0.5
 
     # The threshold of global localization,
-    # only those scan2map-matching with lower fitness than LOCALIZATION_TH will be taken
-    LOCALIZATION_TH = 0.2
+    # only those scan2map-matching with higher fitness than LOCALIZATION_TH will be taken
+    LOCALIZATION_TH = 0.95
 
     # FOV(rad), modify this according to your LiDAR type
     FOV = 1.6
 
     # The farthest distance(meters) within FOV
-    FOV_FAR = 300
+    FOV_FAR = 150
 
     rospy.init_node('fast_lio_localization')
     rospy.loginfo('Localization Node Inited...')

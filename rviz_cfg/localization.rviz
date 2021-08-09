@@ -5,6 +5,7 @@ Panels:
     Property Tree Widget:
       Expanded:
         - /Global Options1
+        - /Grid1
         - /mapping1/surround1
         - /mapping1/currPoints1
         - /mapping1/currPoints1/Autocompute Value Bounds1
@@ -47,10 +48,10 @@ Visualization Manager:
   Class: ""
   Displays:
     - Alpha: 1
-      Cell Size: 1000
+      Cell Size: 0.20000000298023224
       Class: rviz/Grid
       Color: 160; 160; 164
-      Enabled: false
+      Enabled: true
       Line Style:
         Line Width: 0.029999999329447746
         Value: Lines
@@ -61,9 +62,9 @@ Visualization Manager:
         Y: 0
         Z: 0
       Plane: XY
-      Plane Cell Count: 40
-      Reference Frame: <Fixed Frame>
-      Value: false
+      Plane Cell Count: 10
+      Reference Frame: body
+      Value: true
     - Class: rviz/Axes
       Enabled: false
       Length: 0.699999988079071
@@ -265,7 +266,7 @@ Visualization Manager:
           Use Fixed Frame: true
           Use rainbow: true
           Value: true
-        - Alpha: 0.30000001192092896
+        - Alpha: 0.6000000238418579
           Autocompute Intensity Bounds: true
           Autocompute Value Bounds:
             Max Value: 10
@@ -397,25 +398,25 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz/Orbit
-      Distance: 109.72235107421875
+      Distance: 52.648162841796875
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.05999999865889549
         Stereo Focal Distance: 1
         Swap Stereo Eyes: false
         Value: false
       Focal Point:
-        X: 0
-        Y: 0
-        Z: 0
+        X: 17.5119571685791
+        Y: -13.623329162597656
+        Z: 4.375192642211914
       Focal Shape Fixed Size: false
       Focal Shape Size: 0.05000000074505806
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.009999999776482582
-      Pitch: 1.0497967004776
+      Pitch: 1.5697963237762451
       Target Frame: body
       Value: Orbit (rviz)
-      Yaw: 1.9003976583480835
+      Yaw: 1.278587818145752
     Saved: ~
 Window Geometry:
   Displays:

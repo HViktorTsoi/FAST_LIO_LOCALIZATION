@@ -2,6 +2,10 @@
 
 A simple localization framework that can re-localize in built maps based on [FAST-LIO](https://github.com/hku-mars/FAST_LIO). 
 
+## News
+
+- Migrate to **Open3D** for better performance.
+
 ## 1. Features
 - Realtime 3D global localization in a pre-built point cloud map. 
   By fusing low-frequency global localization (about 0.5~0.2Hz), and high-frequency odometry from FAST-LIO, the entire system is computationally efficient.
@@ -35,10 +39,17 @@ This part of dependency is consistent with FAST-LIO, please refer to the documen
 
 - [ros_numpy](https://github.com/eric-wieser/ros_numpy)
 
-- [python-pcl](https://github.com/strawlab/python-pcl)
+- [Open3d](https://github.com/strawlab/python-pcl)
 
-Notice that, if using **Ubuntu 18.04** with native **PCL 1.8**, there may be issue after installing **python-pcl** through pip,
-  please refer to https://github.com/barrygxwan/Python-PCL-Ubuntu18.04, download the **.whl** file and then install.
+Notice that, there may be issue when installing **Open3D** directly using pip in **Python2.7**, you may firstly install **pyrsistent**:
+```shell
+pip install pyrsistent==0.15
+```
+Then
+```
+pip install open3d
+```
+
 
 ## 3. Build
 Clone the repository and catkin_make:
