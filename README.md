@@ -46,8 +46,8 @@ Notice that, there may be issue when installing **Open3D** directly using pip in
 pip install pyrsistent==0.15
 ```
 Then
-```
-pip install open3d
+```shell
+pip install open3d==0.9
 ```
 
 
