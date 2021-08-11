@@ -39,7 +39,11 @@ This part of dependency is consistent with FAST-LIO, please refer to the documen
 
 - [ros_numpy](https://github.com/eric-wieser/ros_numpy)
 
-- [Open3D](https://github.com/strawlab/python-pcl)
+```shell
+sudo apt install ros-$ROS_DISTRO-ros-numpy
+```
+
+- [Open3D](http://www.open3d.org/docs/0.9.0/getting_started.html)
 
 Notice that, there may be issue when installing **Open3D** directly using pip in **Python2.7**, you may firstly install **pyrsistent**:
 ```shell
