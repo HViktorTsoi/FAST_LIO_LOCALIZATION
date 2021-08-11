@@ -45,7 +45,15 @@ sudo apt install ros-$ROS_DISTRO-ros-numpy
 
 - [Open3D](http://www.open3d.org/docs/0.9.0/getting_started.html)
 
-Notice that, there may be issue when installing **Open3D** directly using pip in **Python2.7**, you may firstly install **pyrsistent**:
+```shell
+pip install open3d==0.9
+```
+
+Notice that, there may be issue when installing **Open3D** directly using pip in **Python2.7**: 
+```shell
+ERROR: Package 'pyrsistent' requires a different Python: 2.7.18 not in '>=3.5'
+```
+you may firstly install **pyrsistent**:
 ```shell
 pip install pyrsistent==0.15
 ```
@@ -84,7 +92,7 @@ The map can be built using LIO-SAM or FAST-LIO-SLAM.
 
 ### 4.2 Run
 
-1. First, please make sure you're using a **Python 2.7** environment;
+1. First, please make sure you're using the **Python 2.7** environment;
 
 
 2. Run localization, here we take Livox AVIA as an example:
