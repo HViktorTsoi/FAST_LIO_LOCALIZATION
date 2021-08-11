@@ -41,7 +41,7 @@ def msg_to_array(pc_msg):
 
 def registration_at_scale(pc_scan, pc_map, initial, scale):
     result_icp = o3d.registration.registration_icp(
-        pc_scan.voxel_down_sample(SCAN_VOXEL_SIZE * scale), pc_map.voxel_down_sample(MAP_VOXEL_SIZE * scale),
+        voxel_down_sample(pc_scan, SCAN_VOXEL_SIZE * scale), voxel_down_sample(pc_map, MAP_VOXEL_SIZE * scale),
         1.0 * scale, initial,
         o3d.registration.TransformationEstimationPointToPoint(),
         o3d.registration.ICPConvergenceCriteria(max_iteration=20)
@@ -157,12 +157,21 @@ def global_localization(pose_estimation):
         return False
 
 
+def voxel_down_sample(pcd, voxel_size):
+    try:
+        pcd_down = pcd.voxel_down_sample(voxel_size)
+    except:
+        # for opend3d 0.7 or lower
+        pcd_down = o3d.geometry.voxel_down_sample(pcd, voxel_size)
+    return pcd_down
+
+
 def initialize_global_map(pc_msg):
     global global_map
 
     global_map = o3d.geometry.PointCloud()
     global_map.points = o3d.utility.Vector3dVector(msg_to_array(pc_msg)[:, :3])
-    global_map = global_map.voxel_down_sample(MAP_VOXEL_SIZE)
+    global_map = voxel_down_sample(global_map, MAP_VOXEL_SIZE)
     rospy.loginfo('Global map received.')
 
 

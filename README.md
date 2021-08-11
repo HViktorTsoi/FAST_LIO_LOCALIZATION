@@ -4,6 +4,8 @@ A simple localization framework that can re-localize in built maps based on [FAS
 
 ## News
 
+- **2021-08-11:** Add **Open3D 0.7** support.
+  
 - **2021-08-09:** Migrate to **Open3D** for better performance.
 
 ## 1. Features
