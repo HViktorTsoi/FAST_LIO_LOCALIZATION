@@ -117,6 +117,8 @@ Or if you are running realtime
 ```shell
 roslaunch livox_ros_driver livox_lidar_msg.launch
 ```
+Please set the **publish_freq** in **livox_lidar_rviz.launch** to **10Hz**, to ensure there are enough points for global localization in a single scan. 
+Support for higher frequency is coming soon.
 
 4. Provide initial pose
 ```shell
