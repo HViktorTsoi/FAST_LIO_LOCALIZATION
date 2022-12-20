@@ -48,7 +48,8 @@ sudo apt install ros-$ROS_DISTRO-ros-numpy
 - [Open3D](http://www.open3d.org/docs/0.9.0/getting_started.html)
 
 ```shell
-pip install open3d==0.9
+~~pip install open3d==0.9~~
+pip install open3d==0.13
 ```
 
 ~~Notice that, there may be issue when installing **Open3D** directly using pip in **Python2.7**:~~
