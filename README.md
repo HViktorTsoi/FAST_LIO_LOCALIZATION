@@ -37,7 +37,7 @@ This part of dependency is consistent with FAST-LIO, please refer to the documen
 
 ### 2.2 Dependencies for localization module
 
-- python 2.7
+- ~~python 2.7~~ python 3.8
 
 - [ros_numpy](https://github.com/eric-wieser/ros_numpy)
 
@@ -51,17 +51,18 @@ sudo apt install ros-$ROS_DISTRO-ros-numpy
 pip install open3d==0.9
 ```
 
-Notice that, there may be issue when installing **Open3D** directly using pip in **Python2.7**: 
+~~Notice that, there may be issue when installing **Open3D** directly using pip in **Python2.7**:~~
 ```shell
-ERROR: Package 'pyrsistent' requires a different Python: 2.7.18 not in '>=3.5'
+~~ERROR: Package 'pyrsistent' requires a different Python: 2.7.18 not in '>=3.5'~~
 ```
-you may firstly install **pyrsistent**:
+~~you may firstly install **pyrsistent**:~~
 ```shell
-pip install pyrsistent==0.15
+~~pip install pyrsistent==0.15~~
 ```
-Then
+~~Then~~
 ```shell
-pip install open3d==0.9
+~~pip install open3d==0.9~~
+Just pip install open3d==0.13 (or later version)
 ```
 
 
@@ -94,7 +95,7 @@ The map can be built using LIO-SAM or FAST-LIO-SLAM.
 
 ### 4.2 Run
 
-1. First, please make sure you're using the **Python 2.7** environment;
+1. First, please make sure you're using the **Python ~~2.7~~ 3.8** environment;
 
 
 2. Run localization, here we take Livox AVIA as an example:
