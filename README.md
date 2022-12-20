@@ -1,12 +1,12 @@
 # FAST-LIO-LOCALIZATION
 
-A simple localization framework that can re-localize in built maps based on [FAST-LIO](https://github.com/hku-mars/FAST_LIO). 
+A simple localization framework that can re-localize in built maps based on [FAST-LIO] and works with ROS Noetic(https://github.com/hku-mars/FAST_LIO). 
 
 ## News
 
-- **2021-08-11:** Add **Open3D 0.7** support.
+~~- **2021-08-11:** Add **Open3D 0.7** support.
   
-- **2021-08-09:** Migrate to **Open3D** for better performance.
+~~- **2021-08-09:** Migrate to **Open3D** for better performance.
 
 ## 1. Features
 - Realtime 3D global localization in a pre-built point cloud map. 
