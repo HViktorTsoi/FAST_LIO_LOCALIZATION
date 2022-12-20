@@ -24,7 +24,7 @@
 
 	<!-- glbal map-->
 	<node pkg="pcl_ros" type="pcd_to_pointcloud" name="map_publishe" output="screen"
-		  args="$(arg map) 5 _frame_id:=/map cloud_pcd:=/map" />
+		  args="$(arg map) 5 _frame_id:=map cloud_pcd:=/map" />
 
 
 	<group if="$(arg rviz)">
