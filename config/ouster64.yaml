@@ -5,7 +5,7 @@ common:
     
 preprocess:
     lidar_type: 3                # 1 for Livox serials LiDAR, 2 for Velodyne LiDAR, 3 for ouster LiDAR, 
-    scan_line: 64
+    scan_line: 32
     blind: 4
 
 mapping:
@@ -13,9 +13,9 @@ mapping:
     gyr_cov: 0.1
     b_acc_cov: 0.0001
     b_gyr_cov: 0.0001
-    fov_degree:    180
-    det_range:     150.0
-    extrinsic_T: [ 0.0, 0.0, 0.0 ]
+    fov_degree:    360
+    det_range:     100.0
+    extrinsic_T: [ 0.0, 0.0, 0.1]
     extrinsic_R: [1, 0, 0,
                   0, 1, 0,
                   0, 0, 1]

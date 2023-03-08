@@ -1,9 +1,9 @@
-#!/usr/bin/env python2
+#!/usr/bin/env python3
 # coding=utf8
 from __future__ import print_function, division, absolute_import
 
 import copy
-import thread
+import _thread
 import time
 
 import open3d as o3d
