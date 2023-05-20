@@ -43,6 +43,7 @@ This part of dependency is consistent with FAST-LIO, please refer to the documen
 
 ```shell
 sudo apt install ros-$ROS_DISTRO-ros-numpy
+pip install numpy==1.21
 ```
 
 - [Open3D](http://www.open3d.org/docs/0.9.0/getting_started.html)
