@@ -1,12 +1,12 @@
 # FAST-LIO-LOCALIZATION
 
-A simple localization framework that can re-localize in built maps based on [FAST-LIO](https://github.com/hku-mars/FAST_LIO). 
+A simple localization framework that can re-localize in built maps based on [FAST-LIO] and works with ROS Noetic(https://github.com/hku-mars/FAST_LIO). 
 
 ## News
 
-- **2021-08-11:** Add **Open3D 0.7** support.
+~~- **2021-08-11:** Add **Open3D 0.7** support.
   
-- **2021-08-09:** Migrate to **Open3D** for better performance.
+~~- **2021-08-09:** Migrate to **Open3D** for better performance.
 
 ## 1. Features
 - Realtime 3D global localization in a pre-built point cloud map. 
@@ -37,32 +37,28 @@ This part of dependency is consistent with FAST-LIO, please refer to the documen
 
 ### 2.2 Dependencies for localization module
 
-- python 2.7
+- ~~python 2.7~~ python 3.8
 
 - [ros_numpy](https://github.com/eric-wieser/ros_numpy)
 
 ```shell
 sudo apt install ros-$ROS_DISTRO-ros-numpy
+pip install numpy==1.21
 ```
 
 - [Open3D](http://www.open3d.org/docs/0.9.0/getting_started.html)
 
-```shell
-pip install open3d==0.9
-```
+~~pip install open3d==0.9~~
+pip install open3d==0.13
 
-Notice that, there may be issue when installing **Open3D** directly using pip in **Python2.7**: 
-```shell
-ERROR: Package 'pyrsistent' requires a different Python: 2.7.18 not in '>=3.5'
-```
-you may firstly install **pyrsistent**:
-```shell
-pip install pyrsistent==0.15
-```
-Then
-```shell
-pip install open3d==0.9
-```
+~~Notice that, there may be issue when installing **Open3D** directly using pip in **Python2.7**:~~
+
+~~you may firstly install **pyrsistent**:~~
+
+~~Then~~
+
+~~pip install open3d==0.9~~
+Just pip install open3d==0.13 (or later version)
 
 
 ## 3. Build
@@ -94,7 +90,7 @@ The map can be built using LIO-SAM or FAST-LIO-SLAM.
 
 ### 4.2 Run
 
-1. First, please make sure you're using the **Python 2.7** environment;
+1. First, please make sure you're using the **Python ~~2.7~~ 3.8** environment;
 
 
 2. Run localization, here we take Livox AVIA as an example:

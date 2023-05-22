@@ -1,9 +1,9 @@
-#!/usr/bin/env python2
+#!/usr/bin/env python3
 # coding=utf8
 from __future__ import print_function, division, absolute_import
 
 import copy
-import thread
+import _thread
 import time
 
 import open3d as o3d
@@ -40,11 +40,11 @@ def msg_to_array(pc_msg):
 
 
 def registration_at_scale(pc_scan, pc_map, initial, scale):
-    result_icp = o3d.registration.registration_icp(
+    result_icp = o3d.pipelines.registration.registration_icp(
         voxel_down_sample(pc_scan, SCAN_VOXEL_SIZE * scale), voxel_down_sample(pc_map, MAP_VOXEL_SIZE * scale),
         1.0 * scale, initial,
-        o3d.registration.TransformationEstimationPointToPoint(),
-        o3d.registration.ICPConvergenceCriteria(max_iteration=20)
+        o3d.pipelines.registration.TransformationEstimationPointToPoint(),
+        o3d.pipelines.registration.ICPConvergenceCriteria(max_iteration=20)
     )
 
     return result_icp.transformation, result_icp.fitness
@@ -216,13 +216,13 @@ if __name__ == '__main__':
 
     # The threshold of global localization,
     # only those scan2map-matching with higher fitness than LOCALIZATION_TH will be taken
-    LOCALIZATION_TH = 0.95
+    LOCALIZATION_TH = 0.8
 
     # FOV(rad), modify this according to your LiDAR type
-    FOV = 1.6
+    FOV = 6.28319
 
     # The farthest distance(meters) within FOV
-    FOV_FAR = 150
+    FOV_FAR = 300
 
     rospy.init_node('fast_lio_localization')
     rospy.loginfo('Localization Node Inited...')
@@ -237,7 +237,7 @@ if __name__ == '__main__':
 
     # 初始化全局地图
     rospy.logwarn('Waiting for global map......')
-    initialize_global_map(rospy.wait_for_message('/map', PointCloud2))
+    initialize_global_map(rospy.wait_for_message('map', PointCloud2))
 
     # 初始化
     while not initialized:
@@ -255,6 +255,6 @@ if __name__ == '__main__':
     rospy.loginfo('Initialize successfully!!!!!!')
     rospy.loginfo('')
     # 开始定期全局定位
-    thread.start_new_thread(thread_localization, ())
+    _thread.start_new_thread(thread_localization, ())
 
     rospy.spin()

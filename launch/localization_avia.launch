@@ -16,7 +16,7 @@
     <node pkg="fast_lio_localization" type="fastlio_mapping" name="laserMapping" output="screen" />
 
 
-	<arg name="map" default="" />
+	<arg name="map" default="$(find fast_lio_localization)/PCD/map.pcd" />
 	<!-- loalization-->
     <node pkg="fast_lio_localization" type="global_localization.py" name="global_localization" output="screen" />
 
@@ -25,7 +25,7 @@
 
 	<!-- glbal map-->
     <node pkg="pcl_ros" type="pcd_to_pointcloud" name="map_publishe" output="screen"
-		  args="$(arg map) 5 _frame_id:=/map cloud_pcd:=/map" />
+		  args="$(arg map) 5 _frame_id:=map cloud_pcd:=/map" />
 
 
 	<group if="$(arg rviz)">
