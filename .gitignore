@@ -1,3 +1,67 @@
+# 编译生成的文件
+build/
+devel/
+install/
+bin/
+lib/
+msg_gen/
+srv_gen/
+
+# 依赖包
+.catkin_workspace
+
+# 临时文件
+*.swp
+*.swo
+*~
+.DS_Store
+*.tmp
+*.bak
+
+# Python相关
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+parts/
+sdist/
+var/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# ROS相关
+.catkin_tools/
+.catkin_workspace
+.rosinstall
+.rosinstall.bak
+
+# 其他IDE配置
+.vscode/*
+!.vscode/extensions.json
+!.vscode/launch.json
+!.vscode/tasks.json
+.idea/
+*.sublime-workspace
+*.sublime-project
+
+# 地图和数据文件（如果不想包含在版本控制中）
+*.ply
+*.las
+*.laz
+
+# 日志和输出
+logs/
+*.log
+core.*
+
 build
 Log/*.png
 Log/*.txt
@@ -5,6 +69,5 @@ Log/*.csv
 Log/*.pdf
 .vscode/c_cpp_properties.json
 .vscode/settings.json
-PCD/*.pcd
 .idea
 cmake-build-debug

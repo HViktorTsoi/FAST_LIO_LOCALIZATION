@@ -1,0 +1,33 @@
+common:
+    lid_topic: "/livox/lidar"
+    imu_topic: "/livox/imu"
+    time_sync_en: false
+    time_offset_lidar_to_imu: 0.0
+ 
+preprocess:
+    lidar_type: 1                   # 1: Livox 系列雷达
+    scan_line: 6                    # 模拟扫描线数，Livox 推荐值
+    blind: 0.5                      # 根据手册，近场盲区为 0.5米
+ 
+mapping:
+    acc_cov: 0.1
+    gyr_cov: 0.1
+    b_acc_cov: 0.0001
+    b_gyr_cov: 0.0001
+    fov_degree: 120                 # 水平视场角
+    det_range: 150.0                # 最大量程
+    extrinsic_est_en: false         # 定位模式下关闭外参自动估计
+    extrinsic_T: [0.008, 0.0, 0.023] # 使用建图时确定的外参
+    extrinsic_R: [1, 0, 0,
+                  0, 1, 0,
+                  0, 0, 1]
+ 
+publish:
+    path_en: true                   # 定位时通常需要发布路径
+    scan_publish_en: true           # 发布实时点云
+    dense_publish_en: true         # 定位时可以关闭高密度点云发布以节省资源
+    scan_bodyframe_pub_en: true     # 发布点云（IMU 坐标系下）
+ 
+pcd_save:
+    pcd_save_en: false              # 定位模式下通常不需要保存点云
+    interval: -1 

@@ -1,47 +1,47 @@
-<?xml version="1.0"?>
-<package>
-  <name>fast_lio_localization</name>
-  <version>0.0.0</version>
+<?xml version="1.0"?>  <!-- XML声明，指定版本1.0 -->
+<package>  <!-- 包的根元素 -->
+  <name>fast_lio_localization</name>  <!-- 包名：fast_lio_localization -->
+  <version>0.0.0</version>  <!-- 版本号：0.0.0 -->
 
-  <description>
-    This is a modified version of LOAM which is original algorithm
-    is described in the following paper:
-    J. Zhang and S. Singh. LOAM: Lidar Odometry and Mapping in Real-time.
-      Robotics: Science and Systems Conference (RSS). Berkeley, CA, July 2014.
+  <description>  <!-- 包的描述信息 -->
+    This is a modified version of LOAM which is original algorithm  <!-- 这是LOAM的修改版本 -->
+    is described in the following paper:  <!-- 原始算法在以下论文中描述 -->
+    J. Zhang and S. Singh. LOAM: Lidar Odometry and Mapping in Real-time.  <!-- 论文标题和作者 -->
+      Robotics: Science and Systems Conference (RSS). Berkeley, CA, July 2014.  <!-- 发表会议和时间 -->
   </description>
 
-  <maintainer email="dev@livoxtech.com">claydergc</maintainer>
+  <maintainer email="dev@livoxtech.com">claydergc</maintainer>  <!-- 维护者信息 -->
 
-  <license>BSD</license>
+  <license>BSD</license>  <!-- 许可证类型：BSD -->
 
-  <author email="zhangji@cmu.edu">Ji Zhang</author>
+  <author email="zhangji@cmu.edu">Ji Zhang</author>  <!-- 原作者信息 -->
   
-  <buildtool_depend>catkin</buildtool_depend>
-  <build_depend>geometry_msgs</build_depend>
-  <build_depend>nav_msgs</build_depend>
-  <build_depend>roscpp</build_depend>
-  <build_depend>rospy</build_depend>
-  <build_depend>std_msgs</build_depend>
-  <build_depend>sensor_msgs</build_depend>
-  <build_depend>tf</build_depend>
-  <build_depend>pcl_ros</build_depend>
-  <build_depend>livox_ros_driver</build_depend>
-  <build_depend>message_generation</build_depend>
+  <buildtool_depend>catkin</buildtool_depend>  <!-- 构建工具依赖：catkin -->
+  <build_depend>geometry_msgs</build_depend>  <!-- 构建依赖：几何消息 -->
+  <build_depend>nav_msgs</build_depend>  <!-- 构建依赖：导航消息 -->
+  <build_depend>roscpp</build_depend>  <!-- 构建依赖：ROS C++库 -->
+  <build_depend>rospy</build_depend>  <!-- 构建依赖：ROS Python库 -->
+  <build_depend>std_msgs</build_depend>  <!-- 构建依赖：标准消息 -->
+  <build_depend>sensor_msgs</build_depend>  <!-- 构建依赖：传感器消息 -->
+  <build_depend>tf</build_depend>  <!-- 构建依赖：坐标变换库 -->
+  <build_depend>pcl_ros</build_depend>  <!-- 构建依赖：PCL ROS接口 -->
+  <build_depend>livox_ros_driver</build_depend>  <!-- 构建依赖：Livox激光雷达驱动 -->
+  <build_depend>message_generation</build_depend>  <!-- 构建依赖：消息生成 -->
 
-  <run_depend>geometry_msgs</run_depend>
-  <run_depend>nav_msgs</run_depend>
-  <run_depend>sensor_msgs</run_depend>
-  <run_depend>roscpp</run_depend>
-  <run_depend>rospy</run_depend>
-  <run_depend>std_msgs</run_depend>
-  <run_depend>tf</run_depend>
-  <run_depend>pcl_ros</run_depend>
-  <run_depend>livox_ros_driver</run_depend>
-  <run_depend>message_runtime</run_depend>
+  <run_depend>geometry_msgs</run_depend>  <!-- 运行依赖：几何消息 -->
+  <run_depend>nav_msgs</run_depend>  <!-- 运行依赖：导航消息 -->
+  <run_depend>sensor_msgs</run_depend>  <!-- 运行依赖：传感器消息 -->
+  <run_depend>roscpp</run_depend>  <!-- 运行依赖：ROS C++库 -->
+  <run_depend>rospy</run_depend>  <!-- 运行依赖：ROS Python库 -->
+  <run_depend>std_msgs</run_depend>  <!-- 运行依赖：标准消息 -->
+  <run_depend>tf</run_depend>  <!-- 运行依赖：坐标变换库 -->
+  <run_depend>pcl_ros</run_depend>  <!-- 运行依赖：PCL ROS接口 -->
+  <run_depend>livox_ros_driver</run_depend>  <!-- 运行依赖：Livox激光雷达驱动 -->
+  <run_depend>message_runtime</run_depend>  <!-- 运行依赖：消息运行时 -->
 
-  <test_depend>rostest</test_depend>
-  <test_depend>rosbag</test_depend>
+  <test_depend>rostest</test_depend>  <!-- 测试依赖：ROS测试框架 -->
+  <test_depend>rosbag</test_depend>  <!-- 测试依赖：ROS数据包工具 -->
 
-  <export>
+  <export>  <!-- 导出信息（当前为空） -->
   </export>
 </package>

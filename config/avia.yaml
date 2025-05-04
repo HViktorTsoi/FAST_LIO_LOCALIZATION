@@ -1,26 +1,26 @@
-common:
-    lid_topic:  "/livox/lidar"
-    imu_topic:  "/livox/imu"
-    time_sync_en: false         # ONLY turn on when external time synchronization is really not possible
+common:                          # 通用配置部分
+    lid_topic:  "/livox/lidar"   # 激光雷达数据的ROS话题名称
+    imu_topic:  "/livox/imu"     # IMU数据的ROS话题名称
+    time_sync_en: false          # 是否启用时间同步，仅在外部时间同步确实不可能时才开启
 
-preprocess:
-    lidar_type: 1                # 1 for Livox serials LiDAR, 2 for Velodyne LiDAR, 3 for ouster LiDAR, 
-    scan_line: 6
-    blind: 4
+preprocess:                      # 预处理配置部分
+    lidar_type: 1                # 激光雷达类型：1表示Livox系列，2表示Velodyne，3表示Ouster
+    scan_line: 6                 # 扫描线数，Livox Avia为6线
+    blind: 4                     # 盲区设置，单位为米，小于此距离的点将被过滤
 
-mapping:
-    acc_cov: 0.1
-    gyr_cov: 0.1
-    b_acc_cov: 0.0001
-    b_gyr_cov: 0.0001
-    fov_degree:    90
-    det_range:     450.0
-    extrinsic_T: [ 0.04165, 0.02326, -0.0284 ]
-    extrinsic_R: [ 1, 0, 0,
-                   0, 1, 0,
-                   0, 0, 1]
+mapping:                         # 建图和定位相关配置
+    acc_cov: 0.1                 # 加速度计测量协方差
+    gyr_cov: 0.1                 # 陀螺仪测量协方差
+    b_acc_cov: 0.0001            # 加速度计偏置协方差
+    b_gyr_cov: 0.0001            # 陀螺仪偏置协方差
+    fov_degree:    90            # 视场角度，单位为度
+    det_range:     450.0         # 最大检测范围，单位为米
+    extrinsic_T: [ 0.04165, 0.02326, -0.0284 ] # 激光雷达相对于IMU的外参平移向量[x,y,z]
+    extrinsic_R: [ 1, 0, 0,      # 激光雷达相对于IMU的外参旋转矩阵
+                   0, 1, 0,      # 这里设置为单位矩阵，表示激光雷达和IMU坐标系方向一致
+                   0, 0, 1]      # 行优先存储
 
-publish:     
-    scan_publish_en:  1       # 'false' will close all the point cloud output
-    dense_publish_en: 1       # false will low down the points number in a global-frame point clouds scan.
-    scan_bodyframe_pub_en: 1  # output the point cloud scans in IMU-body-frame
+publish:                         # 发布相关配置
+    scan_publish_en:  1          # 是否发布点云数据，0表示关闭所有点云输出
+    dense_publish_en: 1          # 是否发布密集点云，0会降低全局坐标系中点云的点数
+    scan_bodyframe_pub_en: 1     # 是否发布IMU体坐标系下的点云扫描数据

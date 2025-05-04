@@ -1,34 +1,48 @@
 <launch>
-<!-- Launch file for Livox AVIA LiDAR -->
+<!-- 用于Livox AVIA激光雷达的启动文件 -->
 
+	<!-- 定义rviz参数，默认为true表示启动rviz可视化界面 -->
 	<arg name="rviz" default="true" />
 
+	<!-- 加载avia.yaml配置文件，包含雷达和IMU的参数设置 -->
 	<rosparam command="load" file="$(find fast_lio_localization)/config/avia.yaml" />
 
+	<!-- 禁用特征提取功能 -->
 	<param name="feature_extract_enable" type="bool" value="0"/>
+	<!-- 点云滤波采样率，每隔1个点取1个 -->
 	<param name="point_filter_num" type="int" value="1"/>
+	<!-- 最大迭代次数设置为3 -->
 	<param name="max_iteration" type="int" value="3" />
+	<!-- 表面特征点滤波大小设置为0.5 -->
 	<param name="filter_size_surf" type="double" value="0.5" />
+	<!-- 地图点云滤波大小设置为0.5 -->
 	<param name="filter_size_map" type="double" value="0.5" />
+	<!-- 体素网格边长设置为1000 -->
 	<param name="cube_side_length" type="double" value="1000" />
+	<!-- 禁用运行时位置日志记录 -->
 	<param name="runtime_pos_log_enable" type="bool" value="0" />
+	<!-- 禁用点云保存功能 -->
 	<param name="pcd_save_enable" type="bool" value="0" />
+    <!-- 启动FAST-LIO定位节点 -->
     <node pkg="fast_lio_localization" type="fastlio_mapping" name="laserMapping" output="screen" />
 
 
-	<arg name="map" default="" />
-	<!-- loalization-->
+	<!-- 定义地图文件路径参数 -->
+	<arg name="map" default="$(find fast_lio_localization)/PCD/map.pcd" />
+	<!-- 启动全局定位节点 -->
     <node pkg="fast_lio_localization" type="global_localization.py" name="global_localization" output="screen" />
 
-	<!-- transform  fusion-->
+	<!-- 启动坐标变换融合节点 -->
     <node pkg="fast_lio_localization" type="transform_fusion.py" name="transform_fusion" output="screen" />
 
-	<!-- glbal map-->
+	<!-- 加载并发布全局地图 -->
     <node pkg="pcl_ros" type="pcd_to_pointcloud" name="map_publishe" output="screen"
-		  args="$(arg map) 5 _frame_id:=/map cloud_pcd:=/map" />
+		  args="$(arg map) 5 _frame_id:=map cloud_pcd:=/map" />
 
 
+	<!-- 如果rviz参数为true，则启动rviz可视化界面 -->
 	<group if="$(arg rviz)">
+	<!-- 启动rviz节点，使用nice命令调整优先级，加载定位配置文件 -->
 	<node launch-prefix="nice" pkg="rviz" type="rviz" name="rviz" args="-d $(find fast_lio_localization)/rviz_cfg/localization.rviz" />
 	</group>
 
